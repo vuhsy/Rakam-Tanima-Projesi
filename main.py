@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import (
 )
 from PyQt5.QtCore import (Qt, QPoint)
 from PyQt5.QtGui import (QPainter, QPen, QImage, QPixmap)
+import numpy as np
 #kullanıcı arayuzu
 class StartScreen(QWidget):#açılan ilk ekran, başlat ekranı
     def __init__(self):
@@ -53,9 +54,19 @@ class StartScreen(QWidget):#açılan ilk ekran, başlat ekranı
             self.close()    
 
 class MainWindow(QMainWindow):
-    def save_drawing(self):
-        self.canvas.save_png("input.png")
-        print("Çizim png olarak kaydedildi")
+    def save_drawing(self):#çizimi numpy dizisine çevirme
+        img=self.canvas.get_image()
+        img.save("input.png","PNG")
+        arr=self.qimage_to_numpy(img)
+        print(arr.shape)
+    def qimage_to_numpy(self, qimg):
+        qimg = qimg.convertToFormat(QImage.Format_Grayscale8)#qimage'ı gri tonlamaya çevirme
+        width = qimg.width()
+        height = qimg.height()
+        ptr = qimg.bits()
+        ptr.setsize(height * width)
+        arr = np.frombuffer(ptr, np.uint8).reshape((height, width))
+        return arr
     def __init__(self):
         super().__init__()
         self.setWindowTitle("Rakam Tanıma")
@@ -207,7 +218,10 @@ class DrawingCanvas(QWidget):
         self.image.fill(Qt.white)
         self.update()#ekranı yeniden çizer
     def save_png(self,filename="input.png"):#çizimi png olarak kaydet
-        self.image.save(filename,"PNG")                                           
+        self.image.save(filename,"PNG")
+    def get_image(self):#çizimi qimage olarak döndür
+        return self.image
+                                               
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
