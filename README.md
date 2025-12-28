@@ -13,7 +13,7 @@ kullanıcının çizdiği el yazısı rakamları tahmin eden bir masaüstü uygu
   <img src="images/ana_ekran.png" width="600">
 </p>
 
-- Kullanıcı bu ekranda sol panelde fare ile rakam çizer, kalem rengi ve kalınlığı ayarlar
+- Kullanıcı bu ekranda sol panelden kalem rengi ve kalınlığı ayarlar,orta panele fare ile rakam çizer, 
 ve Tahmin Et butonu ile modeli çalıştırır.
 
 - Sağ panelde tahmin edilen rakamı ve modelin güven oranını görebilir
