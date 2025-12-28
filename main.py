@@ -1,4 +1,5 @@
 import sys
+import playground
 from PyQt5.QtWidgets import (
     QApplication, QMainWindow, QWidget,
     QHBoxLayout, QVBoxLayout, QPushButton, QLabel, QSlider, QSizePolicy
@@ -54,11 +55,18 @@ class StartScreen(QWidget):#açılan ilk ekran, başlat ekranı
             self.close()    
 
 class MainWindow(QMainWindow):
-    def save_drawing(self):#çizimi numpy dizisine çevirme
-        img=self.canvas.get_image()
-        img.save("input.png","PNG")
-        arr=self.qimage_to_numpy(img)
-        print(arr.shape)
+    def save_drawing(self):  # çizimi kaydet + playground ile tahmin et + matplotlib debug aç
+        img = self.canvas.get_image()
+        img.save("input.png", "PNG")  # debug için kalsın
+
+        pred, probs = playground.predict_digit("input.png")
+
+        self.prediction_label.setText(f"Tahmin: {pred}")
+        self.confidence_label.setText(f"Güven: %{float(np.max(probs)) * 100:.2f}")
+
+        # matplotlib penceresi açılsın:
+        playground.show_debug("input.png", probs)
+
     def qimage_to_numpy(self, qimg):
         qimg = qimg.convertToFormat(QImage.Format_Grayscale8)#qimage'ı gri tonlamaya çevirme
         width = qimg.width()
