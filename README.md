@@ -21,7 +21,7 @@ ve Tahmin Et butonu ile modeli çalıştırır.
 
 ---
 
-## 🐞 Debug & Model Girdisi
+## Debug & Model Girdisi
 
 <p align="center">
   <img src="images/debug.png" width="700">
