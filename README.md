@@ -36,3 +36,7 @@ Proje hem **model eğitimi** hem de **grafik arayüz (GUI)** tarafını içermek
 python 3.10.11 
 
 pip install tensorflow numpy pillow matplotlib pyqt5
+
+##  Release
+
+releases kısmından programı kullanıma hazır .exe halinde indirip deneyebilirsiniz
